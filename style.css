@@ -1,0 +1,269 @@
+:root {
+    --bg-color: #0f172a;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --accent: #e11d48;
+    --text: #1e293b;
+    --gold: #d4af37;
+    --shadow: rgba(0, 0, 0, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    background: radial-gradient(circle at bottom, #1e3a8a 0%, #0f172a 100%);
+    overflow-x: hidden;
+}
+
+/* Snow Animation */
+.snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.snow {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: fall linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100vh) translateX(0px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh) translateX(50px); opacity: 0; }
+}
+
+/* Randomize snow */
+.snow:nth-child(1) { left: 10%; animation-duration: 10s; animation-delay: 0s; }
+.snow:nth-child(2) { left: 20%; animation-duration: 15s; animation-delay: 2s; width: 6px; height: 6px; }
+.snow:nth-child(3) { left: 50%; animation-duration: 8s; animation-delay: 4s; }
+.snow:nth-child(4) { left: 70%; animation-duration: 12s; animation-delay: 1s; width: 8px; height: 8px; }
+.snow:nth-child(5) { left: 85%; animation-duration: 14s; animation-delay: 3s; }
+.snow:nth-child(6) { left: 30%; animation-duration: 11s; animation-delay: 2s; }
+.snow:nth-child(7) { left: 90%; animation-duration: 9s; animation-delay: 5s; width: 5px; height: 5px; }
+/* ... more varied snow handled by JS or just stick to simple css for now */
+
+/* Main Layout */
+.main-wrapper {
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+}
+
+/* Letter Card - Using Table Layout as requested */
+.letter-card {
+    width: 600px;
+    max-width: 90%;
+    background: var(--card-bg);
+    border-radius: 20px; /* Modern touch on a table */
+    box-shadow: 
+        0 20px 50px var(--shadow),
+        0 0 0 10px rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    /* Paper Texture effect */
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    transform: rotate(-1deg);
+    transition: transform 0.3s ease;
+}
+
+.letter-card:hover {
+    transform: rotate(0deg) scale(1.01);
+}
+
+/* Header */
+.letter-header {
+    padding: 40px 40px 20px;
+    border-bottom: 2px dashed #cbd5e1;
+    position: relative;
+}
+
+.stamp {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 10px;
+    text-transform: uppercase;
+    transform: rotate(15deg);
+    opacity: 0.7;
+    mask-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+.stamp-inner {
+    font-size: 24px;
+}
+
+h1 {
+    font-family: 'Marck Script', cursive;
+    color: var(--accent);
+    font-size: 3.5rem;
+    margin: 0;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Body */
+.letter-body {
+    padding: 40px;
+    color: var(--text);
+}
+
+.intro {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.intro-text {
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Wishes List */
+.wishes-table {
+    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0 15px; /* Spacing between rows */
+}
+
+.wish-item {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    display: flex; /* Flex inside the TD for layout */
+    align-items: center;
+    gap: 15px;
+}
+
+.wish-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: var(--gold);
+}
+
+.wish-icon {
+    font-size: 2rem;
+    background: #f1f5f9;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.wish-content h3 {
+    margin: 0 0 5px;
+    font-size: 1.1rem;
+    color: #0f172a;
+}
+
+.wish-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.4;
+}
+
+.outro {
+    font-family: 'Marck Script', cursive;
+    font-size: 1.5rem;
+    color: var(--text);
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0.8;
+}
+
+/* Footer */
+.letter-footer {
+    padding: 0 40px 40px;
+}
+
+.send-btn {
+    background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(225, 29, 72, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.send-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(225, 29, 72, 0.4);
+}
+
+.send-btn:active {
+    transform: translateY(1px);
+}
+
+.signature {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .letter-card {
+        width: 100%;
+        margin: 10px;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .letter-body {
+        padding: 20px;
+    }
+
+    .wish-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
